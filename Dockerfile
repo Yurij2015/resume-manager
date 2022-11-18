@@ -45,6 +45,11 @@ RUN set -eux; \
     ;
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN apk add --no-cache --virtual .mysql-deps mysql-dev; \
+	docker-php-ext-install -j$(nproc) pdo_mysql; \
+	apk add --no-cache --virtual .mysql-rundeps
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
