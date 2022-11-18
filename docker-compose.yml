@@ -53,6 +53,7 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
   database:
+    platform: linux/x86_64 #for M1
     image: mysql:${MYSQL_VERSION}
     command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
     ports:
