@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -7,14 +7,16 @@
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
-        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet"/>
+
     {% endblock %}
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
+        <script src="{{ asset('js/adminlte.min.js') }}"></script>
     {% endblock %}
 </head>
-<body class="container">
+<body class="chold-transition sidebar-miniontainer">
 {% block body %}{% endblock %}
 </body>
 </html>
