@@ -1,41 +1,66 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Company index{% endblock %}
-
+{% block title %}Companies{% endblock %}
 {% block body %}
-    <h1>Company index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Site</th>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for company in companies %}
-            <tr>
-                <td>{{ company.id }}</td>
-                <td>{{ company.name }}</td>
-                <td>{{ company.site }}</td>
-                <td>{{ company.address }}</td>
-                <td>{{ company.phone }}</td>
-                <td>
-                    <a href="{{ path('app_company_show', {'id': company.id}) }}">show</a>
-                    <a href="{{ path('app_company_edit', {'id': company.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_company_new') }}">Create new</a>
+    <div class="wrapper">
+        {{ include('layouts/_navbar.html.twig') }}
+        {{ include('layouts/_sidebar.html.twig') }}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Companies</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Companies</a></li>
+                                <li class="breadcrumb-item active">Index</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Site</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for company in companies %}
+                                <tr>
+                                    <td>{{ company.id }}</td>
+                                    <td>{{ company.name }}</td>
+                                    <td>{{ company.site }}</td>
+                                    <td>{{ company.address }}</td>
+                                    <td>{{ company.phone }}</td>
+                                    <td>
+                                        <a href="{{ path('app_company_show', {'id': company.id}) }}">show</a>
+                                        <a href="{{ path('app_company_edit', {'id': company.id}) }}">edit</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <a href="{{ path('app_company_new') }}">Create new</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ include('layouts/_footer.html.twig') }}
+    </div>
 {% endblock %}
+
+
