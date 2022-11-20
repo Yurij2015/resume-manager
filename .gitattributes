@@ -11,7 +11,6 @@
 *.yaml text eol=lf
 *.yml text eol=lf
 bin/console text eol=lf
-public/css/adminlte.css linguist-detectable=false
-
+*.css linguist-detectable=false
 *.ico binary
 *.png binary
