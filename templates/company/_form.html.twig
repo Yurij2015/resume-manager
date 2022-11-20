@@ -1,4 +1,26 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="card-body">
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder':'Enter name'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.site) }}
+        {{ form_widget(form.site, {'attr': {'class': 'form-control', 'placeholder':'Enter site'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.address) }}
+        {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder':'Enter address'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.phone) }}
+        {{ form_widget(form.phone, {'attr': {'class': 'form-control', 'placeholder':'Enter phone'}}) }}
+    </div>
+</div>
+<div class="card-footer">
+    <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}

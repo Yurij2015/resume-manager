@@ -1,38 +1,65 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Company{% endblock %}
-
+{% block title %}Companies{% endblock %}
 {% block body %}
-    <h1>Company</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ company.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ company.name }}</td>
-            </tr>
-            <tr>
-                <th>Site</th>
-                <td>{{ company.site }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ company.address }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ company.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_company_index') }}">back to list</a>
-
-    <a href="{{ path('app_company_edit', {'id': company.id}) }}">edit</a>
-
-    {{ include('company/_delete_form.html.twig') }}
+    <div class="wrapper">
+        {{ include('layouts/_navbar.html.twig') }}
+        {{ include('layouts/_sidebar.html.twig') }}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Company - {{ company.name }}</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Companies</a></li>
+                                <li class="breadcrumb-item active">Index</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Details of company - {{ company.name }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover">
+                                        <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ company.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Site</th>
+                                            <td>{{ company.site }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ company.address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phone</th>
+                                            <td>{{ company.phone }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ path('app_company_index') }}" class="btn btn-info btn-sm mr-2">back to list</a>
+                        <a href="{{ path('app_company_edit', {'id': company.id}) }}"
+                           class="btn btn-warning btn-sm mr-2">edit</a>
+                        {{ include('company/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ include('layouts/_footer.html.twig') }}
+    </div>
 {% endblock %}
