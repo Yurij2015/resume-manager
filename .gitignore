@@ -10,3 +10,4 @@
 .idea
 ###< symfony/framework-bundle ###
 /public/img/
+/public/uploads/

@@ -1,4 +1,20 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="card-body">
+    <div class="form-group">
+        {{ form_label(form.position) }}
+        {{ form_widget(form.position, {'attr': {'class': 'form-control', 'placeholder':'Enter position name'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'placeholder':'Enter resume content'}}) }}
+    </div>
+    <div class="input-group">
+        {{ form_widget(form.filePath) }}
+    </div>
+    {{ form_widget(form.dateCreate, {'attr': {'class': 'form-control', 'hidden': 'hidden'}}) }}
+    {{ form_widget(form.dateUpdate, {'attr': {'class': 'form-control', 'hidden': 'hidden'}}) }}
+</div>
+<div class="card-footer">
+    <button class="btn btn-primary btn-sm">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}
