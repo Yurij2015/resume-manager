@@ -77,8 +77,11 @@ class Resume
 
     public function setDateCreate(\DateTimeInterface $dateCreate): self
     {
-        $this->dateCreate = $dateCreate;
-
+        if (!$this->getDateUpdate()) {
+            $this->dateCreate = new \DateTime();
+        } else {
+            $this->dateCreate = $dateCreate;
+        }
         return $this;
     }
 
@@ -89,7 +92,7 @@ class Resume
 
     public function setDateUpdate(\DateTimeInterface $dateUpdate): self
     {
-        $this->dateUpdate = $dateUpdate;
+        $this->dateUpdate = new \DateTime();
 
         return $this;
     }
