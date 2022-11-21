@@ -16,7 +16,6 @@ class ResumeType extends AbstractType
         $builder
             ->add('position')
             ->add('content')
-//            ->add('filePath')
             ->add('filePath', FileType::class, [
                 'label' => 'Resume (PDF file)',
                 'mapped' => false,
