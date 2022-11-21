@@ -1,11 +1,41 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}New Resume{% endblock %}
-
 {% block body %}
-    <h1>Create new Resume</h1>
-
-    {{ include('resume/_form.html.twig') }}
-
-    <a href="{{ path('app_resume_index') }}">back to list</a>
+    <div class="wrapper">
+        {{ include('layouts/_navbar.html.twig') }}
+        {{ include('layouts/_sidebar.html.twig') }}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Create new Resume</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ path('app_resume_index') }}">Resumes</a></li>
+                                <li class="breadcrumb-item active">Create</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Add resume</h3>
+                                </div>
+                                {{ include('resume/_form.html.twig') }}
+                            </div>
+                            <a href="{{ path('app_resume_index') }}" class="btn btn-info btn-sm">back to list</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ include('layouts/_footer.html.twig') }}
+    </div>
 {% endblock %}

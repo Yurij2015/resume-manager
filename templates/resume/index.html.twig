@@ -35,7 +35,6 @@
                                             <th>Id</th>
                                             <th>Position</th>
                                             <th>Content</th>
-                                            <th>FilePath</th>
                                             <th>DateCreate</th>
                                             <th>DateUpdate</th>
                                             <th>actions</th>
@@ -47,12 +46,13 @@
                                                 <td>{{ resume.id }}</td>
                                                 <td>{{ resume.position }}</td>
                                                 <td>{{ resume.content }}</td>
-                                                <td>{{ resume.filePath }}</td>
                                                 <td>{{ resume.dateCreate ? resume.dateCreate|date('Y-m-d H:i:s') : '' }}</td>
                                                 <td>{{ resume.dateUpdate ? resume.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
                                                 <td>
-                                                    <a href="{{ path('app_resume_show', {'id': resume.id}) }}">show</a>
-                                                    <a href="{{ path('app_resume_edit', {'id': resume.id}) }}">edit</a>
+                                                    <a href="{{ path('app_resume_show', {'id': resume.id}) }}"
+                                                       class="btn btn-info btn-xs">show</a>
+                                                    <a href="{{ path('app_resume_edit', {'id': resume.id}) }}"
+                                                       class="btn btn-warning btn-xs">edit</a>
                                                 </td>
                                             </tr>
                                         {% else %}
@@ -64,7 +64,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <a href="{{ path('app_resume_new') }}">Create new</a>
+                            <a href="{{ path('app_resume_new') }}" class="btn btn-primary btn-sm mb-4">Create new</a>
                         </div>
                     </div>
                 </div>

@@ -1,42 +1,81 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Resume{% endblock %}
-
+{% block title %}Resumes{% endblock %}
 {% block body %}
-    <h1>Resume</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ resume.id }}</td>
-            </tr>
-            <tr>
-                <th>Position</th>
-                <td>{{ resume.position }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ resume.content }}</td>
-            </tr>
-            <tr>
-                <th>FilePath</th>
-                <td>{{ resume.filePath }}</td>
-            </tr>
-            <tr>
-                <th>DateCreate</th>
-                <td>{{ resume.dateCreate ? resume.dateCreate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateUpdate</th>
-                <td>{{ resume.dateUpdate ? resume.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_resume_index') }}">back to list</a>
-
-    <a href="{{ path('app_resume_edit', {'id': resume.id}) }}">edit</a>
-
-    {{ include('resume/_delete_form.html.twig') }}
+    <div class="wrapper">
+        {{ include('layouts/_navbar.html.twig') }}
+        {{ include('layouts/_sidebar.html.twig') }}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Resume - {{ resume.position }}</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ path('app_resume_index') }}">Resumes</a></li>
+                                <li class="breadcrumb-item active">{{ resume.position }}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Details of resume - {{ resume.position }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover">
+                                        <tbody>
+                                        <tr>
+                                            <th>Id</th>
+                                            <td>{{ resume.id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Position</th>
+                                            <td>{{ resume.position }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Content</th>
+                                            <td>{{ resume.content }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Resume</th>
+                                            <td>
+                                                {% if showFileLink %}
+                                                    <a href="{{ asset('uploads/resumes/' ~ resume.filePath) }}">
+                                                        View resume (PDF)
+                                                    </a>
+                                                {% else %}
+                                                    No file
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>DateCreate</th>
+                                            <td>{{ resume.dateCreate ? resume.dateCreate|date('Y-m-d H:i:s') : '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>DateUpdate</th>
+                                            <td>{{ resume.dateUpdate ? resume.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ path('app_resume_index') }}" class="btn btn-info btn-sm mr-2">back to list</a>
+                        <a href="{{ path('app_resume_edit', {'id': resume.id}) }}"
+                           class="btn btn-warning btn-sm mr-2">edit</a>
+                        {{ include('resume/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ include('layouts/_footer.html.twig') }}
+    </div>
 {% endblock %}
