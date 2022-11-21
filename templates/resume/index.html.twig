@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Companies{% endblock %}
+{% block title %}Resumes{% endblock %}
 {% block body %}
     <div class="wrapper">
         {{ include('layouts/_navbar.html.twig') }}
@@ -9,11 +9,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Companies</h1>
+                            <h1 class="m-0">Resumes</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ path('app_company_index') }}">Companies</a></li>
+                                <li class="breadcrumb-item"><a href="{{ path('app_resume_index') }}">Resumes</a></li>
                                 <li class="breadcrumb-item active">Index</li>
                             </ol>
                         </div>
@@ -26,46 +26,45 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">List of companies</h3>
+                                    <h3 class="card-title">List of resumes</h3>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Site</th>
-                                            <th>Address</th>
-                                            <th>Phone</th>
+                                            <th>Position</th>
+                                            <th>Content</th>
+                                            <th>FilePath</th>
+                                            <th>DateCreate</th>
+                                            <th>DateUpdate</th>
                                             <th>actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% for company in companies %}
+                                        {% for resume in resumes %}
                                             <tr>
-                                                <td>{{ company.id }}</td>
-                                                <td>{{ company.name }}</td>
-                                                <td>{{ company.site }}</td>
-                                                <td>{{ company.address }}</td>
-                                                <td>{{ company.phone }}</td>
+                                                <td>{{ resume.id }}</td>
+                                                <td>{{ resume.position }}</td>
+                                                <td>{{ resume.content }}</td>
+                                                <td>{{ resume.filePath }}</td>
+                                                <td>{{ resume.dateCreate ? resume.dateCreate|date('Y-m-d H:i:s') : '' }}</td>
+                                                <td>{{ resume.dateUpdate ? resume.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
                                                 <td>
-                                                    <a href="{{ path('app_company_show', {'id': company.id}) }}"
-                                                       class="btn btn-info btn-xs">show</a>
-                                                    <a href="{{ path('app_company_edit', {'id': company.id}) }}"
-                                                       class="btn btn-warning btn-xs">edit</a>
+                                                    <a href="{{ path('app_resume_show', {'id': resume.id}) }}">show</a>
+                                                    <a href="{{ path('app_resume_edit', {'id': resume.id}) }}">edit</a>
                                                 </td>
                                             </tr>
                                         {% else %}
                                             <tr>
-                                                <td colspan="6">no records found</td>
+                                                <td colspan="7">no records found</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <a href="{{ path('app_company_new') }}" class="btn btn-primary btn-sm">Create new</a>
-
+                            <a href="{{ path('app_resume_new') }}">Create new</a>
                         </div>
                     </div>
                 </div>
@@ -74,5 +73,3 @@
         {{ include('layouts/_footer.html.twig') }}
     </div>
 {% endblock %}
-
-
