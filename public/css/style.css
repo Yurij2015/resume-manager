@@ -1,0 +1,10 @@
+.requaired_row.required:before {
+    content: "* ";
+    color: red;
+}
+
+.requaired_row.required:after {
+    content: " (required)";
+    color: red;
+    font-size: 9px;
+}

@@ -1,12 +1,14 @@
 {{ form_start(form) }}
 <div class="card-body">
     <div class="form-group">
-        {{ form_label(form.position) }}
+        {{ form_errors(form.position) }}
+        {{ form_label(form.position, 'Position', {'label_attr': {'class': 'requaired_row'}}) }}
         {{ form_widget(form.position, {'attr': {'class': 'form-control', 'placeholder':'Enter position name'}}) }}
     </div>
     <div class="form-group">
-        {{ form_label(form.content) }}
-        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'placeholder':'Enter resume content'}}) }}
+        {{ form_errors(form.content) }}
+        {{ form_label(form.content, "Content", {'label_attr': {'class': 'requaired_row'}}) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'data':'Enter resume content'}}) }}
     </div>
     <div class="input-group">
         {{ form_widget(form.filePath) }}
