@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResumeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,14 @@ class Resume
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateUpdate = null;
+
+    #[ORM\OneToMany(mappedBy: 'resume', targetEntity: Reaction::class)]
+    private Collection $reactions;
+
+    public function __construct()
+    {
+        $this->reactions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -93,6 +103,36 @@ class Resume
     public function setDateUpdate(\DateTimeInterface $dateUpdate): self
     {
         $this->dateUpdate = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reaction>
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions->add($reaction);
+            $reaction->setResume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getResume() === $this) {
+                $reaction->setResume(null);
+            }
+        }
 
         return $this;
     }

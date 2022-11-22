@@ -30,16 +30,9 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="float-right">
-                                        <a class="btn btn-app bg-gradient-primary">
-                                            <span class="badge bg-purple">531</span>
-                                            <i class="fas fa-heart"></i> Like
-                                        </a>
-                                        <a class="btn btn-app bg-yellow">
-                                            <span class="badge bg-info">531</span>
-                                            <i class="fas fa-thumbs-down"></i>Do not like
-                                        </a>
+                                        {{ include('resume/_thumbs_up_form.twig') }}
+                                        {{ include('resume/_thumbs_down_form.twig') }}
                                     </div>
-
                                     <table class="table table-bordered table-hover">
                                         <tbody>
                                         <tr>
