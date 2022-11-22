@@ -45,7 +45,7 @@
                                             <tr>
                                                 <td>{{ resume.id }}</td>
                                                 <td>{{ resume.position }}</td>
-                                                <td>{{ resume.content }}</td>
+                                                <td>{% autoescape %}{{ resume.content | raw }} {% endautoescape %}</td>
                                                 <td>{{ resume.dateCreate ? resume.dateCreate|date('Y-m-d H:i:s') : '' }}</td>
                                                 <td>{{ resume.dateUpdate ? resume.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
                                                 <td>

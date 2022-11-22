@@ -8,11 +8,24 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
         <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet"/>
-
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
     {% endblock %}
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
+                <script src="https://cdn.tiny.cloud/1/7pxxebfatsrkizfz23o8eh0fz5wpqja4k03eq2z1hzpyqy5h/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        tinymce.triggerSave();
+                    });
+                },
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            });
+        </script>
     {% endblock %}
 </head>
 <body class="chold-transition sidebar-miniontainer">
