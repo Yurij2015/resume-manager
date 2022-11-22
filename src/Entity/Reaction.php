@@ -68,12 +68,12 @@ class Reaction
         return $this;
     }
 
-    public function getdateCreate(): ?\DateTimeInterface
+    public function getDateCreate(): ?\DateTimeInterface
     {
         return $this->dateCreate;
     }
 
-    public function setdateCreate(?\DateTimeInterface $dateCreate): self
+    public function setDateCreate(?\DateTimeInterface $dateCreate): self
     {
         $this->dateCreate = $dateCreate;
 

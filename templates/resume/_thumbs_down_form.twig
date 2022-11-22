@@ -1,10 +1,8 @@
-<a class="btn btn-app bg-yellow">
-    <span class="badge bg-info">531</span>
-    <i class="fas fa-thumbs-down"></i>Dislike
-</a>
-
-{#<form method="post" action="{{ path('app_company_delete', {'id': company.id}) }}"#}
-{#      onsubmit="return confirm('Are you sure you want to delete this item?');">#}
-{#    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ company.id) }}">#}
-{#    <button class="btn btn-outline-danger btn-sm">delete</button>#}
-{#</form>#}
+<form method="post" action="{{ path('app_reaction_new', {'resume': resume.id}) }}">
+    <input type="hidden" name="resume" value="{{ csrf_token('resume' ~ resume.id) }}">
+    <input type="hidden" name="reactionValue" value="{{ false }}">
+    <button class="btn btn-app bg-yellow mr-2">
+        <span class="badge bg-info">{{ dislike }}</span>
+        <i class="fas fa-thumbs-down"></i> Like
+    </button>
+</form>
