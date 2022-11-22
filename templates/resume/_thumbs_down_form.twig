@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('app_reaction_new', {'resume': resume.id}) }}">
+    <input type="hidden" name="resume" value="{{ csrf_token('resume' ~ resume.id) }}">
+    <input type="hidden" name="reactionValue" value="{{ false }}">
+    <button class="btn btn-app bg-yellow mr-2">
+        <span class="badge bg-info">{{ dislike }}</span>
+        <i class="fas fa-thumbs-down"></i> Like
+    </button>
+</form>

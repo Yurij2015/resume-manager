@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Reaction;
 use App\Entity\Resume;
 use App\Form\ResumeType;
+use App\Repository\ReactionRepository;
 use App\Repository\ResumeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -47,7 +49,7 @@ class ResumeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_resume_show', methods: ['GET'])]
-    public function show(Resume $resume): Response
+    public function show(Resume $resume, ReactionRepository $reactionRepository): Response
     {
         $isFilePath = $resume->getFilePath();
         $fileExist = file_exists('uploads/resumes/' . $resume->getFilePath());
@@ -57,7 +59,9 @@ class ResumeController extends AbstractController
         }
         return $this->render('resume/show.html.twig', [
             'resume' => $resume,
-            'showFileLink' => $showFileLink
+            'showFileLink' => $showFileLink,
+            'like' => $this->numberOfLikes($reactionRepository, $resume->getId(), true),
+            'dislike' => $this->numberOfLikes($reactionRepository, $resume->getId(), false)
         ]);
     }
 
@@ -95,5 +99,23 @@ class ResumeController extends AbstractController
         }
 
         return $this->redirectToRoute('app_resume_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/new-up-reaction/{resume}', name: 'app_reaction_new', methods: ['POST'])]
+    public function reactionUpAdd(ReactionRepository $reactionRepository, Request $request, Resume $resume): Response
+    {
+        $reaction = new Reaction();
+        $reaction->setResume($resume);
+        $reaction->setUser(1);
+        $reaction->setReactionValue($request->request->get('reactionValue'));
+        $reaction->setDateCreate(new \DateTime());
+        $reactionRepository->save($reaction, true);
+        return $this->redirectToRoute('app_resume_show', ['id' => $resume->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    public function numberOfLikes(ReactionRepository $reactionRepository, $resume, $reactionValue): int
+    {
+        $reactions = $reactionRepository->findBy(['resume' => $resume, 'reactionValue' => $reactionValue]);
+        return count($reactions);
     }
 }
