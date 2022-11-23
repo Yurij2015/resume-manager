@@ -27,6 +27,11 @@
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p> Resumes <i class="right fas fa-angle-left"></i></p>
                     </a>
+                    <a href="{{ path('app_resume_statistic') }}"
+                       class="nav-link {{ (app.request.get('_route') == 'app_resume_statistic') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p> Statistic <i class="right fas fa-angle-left"></i></p>
+                    </a>
                 </li>
             </ul>
         </nav>

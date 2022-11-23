@@ -34,9 +34,13 @@ class Resume
     #[ORM\OneToMany(mappedBy: 'resume', targetEntity: Reaction::class)]
     private Collection $reactions;
 
+    #[ORM\OneToMany(mappedBy: 'resume', targetEntity: SendResume::class)]
+    private Collection $sendResumes;
+
     public function __construct()
     {
         $this->reactions = new ArrayCollection();
+        $this->sendResumes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,6 +135,36 @@ class Resume
             // set the owning side to null (unless already changed)
             if ($reaction->getResume() === $this) {
                 $reaction->setResume(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SendResume>
+     */
+    public function getSendResumes(): Collection
+    {
+        return $this->sendResumes;
+    }
+
+    public function addSendResume(SendResume $sendResume): self
+    {
+        if (!$this->sendResumes->contains($sendResume)) {
+            $this->sendResumes->add($sendResume);
+            $sendResume->setResume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSendResume(SendResume $sendResume): self
+    {
+        if ($this->sendResumes->removeElement($sendResume)) {
+            // set the owning side to null (unless already changed)
+            if ($sendResume->getResume() === $this) {
+                $sendResume->setResume(null);
             }
         }
 
