@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Statistic{% endblock %}
 {% block body %}
+    <div class="js-sent-resumes"
+         data-sent-resumes="{{ dataSentResume|serialize(format = 'json') }}"
+         data-position="{{ dataPosition|serialize(format = 'json') }}"
+    >
+    </div>
     <div class="wrapper">
         {{ include('layouts/_navbar.html.twig') }}
         {{ include('layouts/_sidebar.html.twig') }}
@@ -13,7 +18,8 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ path('app_resume_statistic') }}">Statistic</a></li>
+                                <li class="breadcrumb-item"><a href="{{ path('app_resume_statistic') }}">Statistic</a>
+                                </li>
                                 <li class="breadcrumb-item active">Index</li>
                             </ol>
                         </div>
@@ -32,17 +38,15 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Resume</th>
-                                            <th>DateCreate</th>
+                                            <th>Resume (position)</th>
+                                            <th>Number of companies</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% for resume in resumes %}
+                                        {% for item in sentResumeStat %}
                                             <tr>
-                                                <td>{{ resume.id }}</td>
-                                                <td>{{ resume.position }}</td>
-                                                <td>{{ resume.dateCreate ? resume.dateCreate|date('Y-m-d H:i:s') : '' }}</td>
+                                                <td>{{ item.position }}</td>
+                                                <td>{{ item.numberOfCompanies }}</td>
                                             </tr>
                                         {% else %}
                                             <tr>
@@ -53,7 +57,20 @@
                                     </table>
                                 </div>
                             </div>
-                            <a href="{{ path('app_resume_new') }}" class="btn btn-primary btn-sm mb-4">Create new</a>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="card-title">Sent resumes</h3>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="position-relative mb-4">
+                                        <canvas id="sent-chart" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,4 +78,5 @@
         </div>
         {{ include('layouts/_footer.html.twig') }}
     </div>
+    <script src="{{ asset('js/sent-chart.js') }}"></script>
 {% endblock %}
