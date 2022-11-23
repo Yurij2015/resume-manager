@@ -39,7 +39,7 @@ class ResumeController extends AbstractController
         $dataSentResume = [];
         $dataPosition = [];
 
-        foreach ($sentResumeStat as $item){
+        foreach ($sentResumeStat as $item) {
             $dataSentResume[] = $item['numberOfCompanies'];
             $dataPosition[] = $item['position'];
         }
@@ -48,7 +48,9 @@ class ResumeController extends AbstractController
             'resumes' => $resumeRepository->findAll(),
             'sentResumeStat' => $resumeRepository->sentResumeStat(),
             'dataSentResume' => $dataSentResume,
-            'dataPosition' => $dataPosition
+            'dataPosition' => $dataPosition,
+            'likesStat' => $resumeRepository->likesDislikeStat(true),
+            'dislikesStat' => $resumeRepository->likesDislikeStat(false)
         ]);
     }
 

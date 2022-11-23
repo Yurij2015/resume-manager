@@ -72,6 +72,64 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Statistic of likes</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Resume (position)</th>
+                                            <th>Number of likes</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in likesStat %}
+                                            <tr>
+                                                <td>{{ item.position }}</td>
+                                                <td>{{ item.countsOfValues }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="7">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Statistic of dislikes</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Resume (position)</th>
+                                            <th>Number of dislikes</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in dislikesStat %}
+                                            <tr>
+                                                <td>{{ item.position }}</td>
+                                                <td>{{ item.countsOfValues }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="7">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
