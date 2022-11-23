@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Company;
 use App\Entity\Reaction;
 use App\Entity\Resume;
-use App\Entity\SendResume;
 use App\Form\ResumeType;
 use App\Repository\CompanyRepository;
 use App\Repository\ReactionRepository;
