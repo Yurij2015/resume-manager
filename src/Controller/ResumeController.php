@@ -64,7 +64,6 @@ class ResumeController extends AbstractController
         Resume $resume,
         ReactionRepository $reactionRepository,
         CompanyRepository $companyRepository,
-        Company $company
     ): Response {
         $isFilePath = $resume->getFilePath();
         $fileExist = file_exists('uploads/resumes/' . $resume->getFilePath());
@@ -79,7 +78,6 @@ class ResumeController extends AbstractController
             'like' => $this->numberOfLikes($reactionRepository, $resume->getId(), true),
             'dislike' => $this->numberOfLikes($reactionRepository, $resume->getId(), false),
             'companies' => $companyRepository->findAll(),
-            'company' => $company
         ]);
     }
 
