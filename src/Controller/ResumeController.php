@@ -29,11 +29,26 @@ class ResumeController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/statistic', name: 'app_resume_statistic', methods: ['GET'])]
     public function statistic(ResumeRepository $resumeRepository): Response
     {
+        $sentResumeStat = $resumeRepository->sentResumeStat();
+        $dataSentResume = [];
+        $dataPosition = [];
+
+        foreach ($sentResumeStat as $item){
+            $dataSentResume[] = $item['numberOfCompanies'];
+            $dataPosition[] = $item['position'];
+        }
+
         return $this->render('resume/statistic.html.twig', [
             'resumes' => $resumeRepository->findAll(),
+            'sentResumeStat' => $resumeRepository->sentResumeStat(),
+            'dataSentResume' => $dataSentResume,
+            'dataPosition' => $dataPosition
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Resume;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,21 @@ class ResumeRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Resume[] Returns an array of Resume objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Resume
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @throws Exception
+     */
+    public function sentResumeStat(): array
+    {
+        try {
+            $conn = $this->getEntityManager()->getConnection();
+            $sql = "SELECT DISTINCT(resume_id) as resume, r.position as position, COUNT(company_id) as numberOfCompanies
+                    FROM send_resume JOIN resume r on r.id = send_resume.resume_id
+                    GROUP BY resume_id;";
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->executeQuery();
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        return $result->fetchAllAssociative();
+    }
 }
