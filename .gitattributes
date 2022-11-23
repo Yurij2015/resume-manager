@@ -12,5 +12,6 @@
 *.yml text eol=lf
 bin/console text eol=lf
 *.css linguist-detectable=false
+*.js linguist-detectable=false
 *.ico binary
 *.png binary
