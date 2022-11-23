@@ -57,4 +57,23 @@ class ResumeRepository extends ServiceEntityRepository
         }
         return $result->fetchAllAssociative();
     }
+
+    /**
+     * @throws Exception
+     */
+    public function likesDislikeStat($value): array
+    {
+        try {
+            $conn = $this->getEntityManager()->getConnection();
+            $sql = "SELECT DISTINCT(resume_id) as resumeId, r.position as position, COUNT(reaction_value) as countsOfValues
+                    FROM reaction JOIN resume r on r.id = reaction.resume_id
+                    WHERE reaction_value = '{$value}'
+                    GROUP BY resume_id;";
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->executeQuery();
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        return $result->fetchAllAssociative();
+    }
 }
