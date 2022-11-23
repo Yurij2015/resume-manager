@@ -12,10 +12,10 @@
 *.yml text eol=lf
 bin/console text eol=lf
 *.css linguist-detectable=false
-public/js/char.js *.js linguist-detectable=false
-public/js/jquery *.js linguist-detectable=false
-public/js/adminlte.js.map *.js linguist-detectable=false
-public/js/adminlte.min.js *.js linguist-detectable=false
-public/js/adminlte.min.js.map *.js linguist-detectable=false
+public/js/char.js text linguist-detectable=false
+public/js/jquery text linguist-detectable=false
+public/js/adminlte.js.map text linguist-detectable=false
+public/js/adminlte.min.js text linguist-detectable=false
+public/js/adminlte.min.js.map text linguist-detectable=false
 *.ico binary
 *.png binary
