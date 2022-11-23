@@ -19,18 +19,18 @@
                 <li class="nav-item menu-open">
                     <a href="{{ path('app_company_index') }}"
                        class="nav-link {{ (app.request.get('_route') == 'app_company_index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p> Companies <i class="right fas fa-angle-left"></i></p>
+                        <i class="nav-icon fas fa-th"></i>
+                        <p> Companies</p>
                     </a>
                     <a href="{{ path('app_resume_index') }}"
                        class="nav-link {{ (app.request.get('_route') == 'app_resume_index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p> Resumes <i class="right fas fa-angle-left"></i></p>
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p> Resumes</i></p>
                     </a>
                     <a href="{{ path('app_resume_statistic') }}"
                        class="nav-link {{ (app.request.get('_route') == 'app_resume_statistic') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p> Statistic <i class="right fas fa-angle-left"></i></p>
+                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <p> Statistic</p>
                     </a>
                 </li>
             </ul>
