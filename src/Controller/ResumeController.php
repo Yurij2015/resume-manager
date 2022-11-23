@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
 use App\Entity\Reaction;
 use App\Entity\Resume;
+use App\Entity\SendResume;
 use App\Form\ResumeType;
+use App\Repository\CompanyRepository;
 use App\Repository\ReactionRepository;
 use App\Repository\ResumeRepository;
+use App\Repository\SendResumeRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\FileUploader;
 
 #[Route('/resume')]
@@ -22,6 +25,14 @@ class ResumeController extends AbstractController
     public function index(ResumeRepository $resumeRepository): Response
     {
         return $this->render('resume/index.html.twig', [
+            'resumes' => $resumeRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/statistic', name: 'app_resume_statistic', methods: ['GET'])]
+    public function statistic(ResumeRepository $resumeRepository): Response
+    {
+        return $this->render('resume/statistic.html.twig', [
             'resumes' => $resumeRepository->findAll(),
         ]);
     }
@@ -49,19 +60,26 @@ class ResumeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_resume_show', methods: ['GET'])]
-    public function show(Resume $resume, ReactionRepository $reactionRepository): Response
-    {
+    public function show(
+        Resume $resume,
+        ReactionRepository $reactionRepository,
+        CompanyRepository $companyRepository,
+        Company $company
+    ): Response {
         $isFilePath = $resume->getFilePath();
         $fileExist = file_exists('uploads/resumes/' . $resume->getFilePath());
         $showFileLink = true;
         if (!$isFilePath || !$fileExist) {
             $showFileLink = false;
         }
+
         return $this->render('resume/show.html.twig', [
             'resume' => $resume,
             'showFileLink' => $showFileLink,
             'like' => $this->numberOfLikes($reactionRepository, $resume->getId(), true),
-            'dislike' => $this->numberOfLikes($reactionRepository, $resume->getId(), false)
+            'dislike' => $this->numberOfLikes($reactionRepository, $resume->getId(), false),
+            'companies' => $companyRepository->findAll(),
+            'company' => $company
         ]);
     }
 
@@ -117,5 +135,26 @@ class ResumeController extends AbstractController
     {
         $reactions = $reactionRepository->findBy(['resume' => $resume, 'reactionValue' => $reactionValue]);
         return count($reactions);
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[Route('/sent_resume_save/{resume}', name: 'sent_resume_save', methods: ['POST'])]
+    public function sentResumeSave(
+        Resume $resume,
+        Request $request,
+        SendResumeRepository $sendResumeRepository
+    ): Response {
+        $selectedCountry = $request->request->get('selectedCompany');
+        $rowIsset = $sendResumeRepository->findBy(["resume" => $resume, 'company' => $selectedCountry]);
+        if ($rowIsset) {
+            return $this->render(
+                'bundles/TwigBundle/Exception/error.html.twig',
+                ['route' => 'app_resume_show', 'id' => $resume->getId(), 'message' => 'Company alredy saved']
+            );
+        }
+        $sendResumeRepository->sentResumeSave($resume->getId(), $selectedCountry);
+        return $this->redirectToRoute('app_resume_show', ['id' => $resume->getId()], Response::HTTP_SEE_OTHER);
     }
 }
